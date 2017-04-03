@@ -1,19 +1,19 @@
 all: binary 
-libs: libh.so libg.a
-binary: hello.o libg.a libh.so 
+libs: libh.a libg.a
+binary: hello.o libg.a libh.a 
 	gcc -o binary hello.o -L. -lh -lg -Wl,-rpath,.
 
 hello.o: hello.c
 	gcc -c hello.c
 
-libh.so: libhello.o
-	gcc -shared -o libh.so libhello.o 
+libh.a: libhello.o
+	ar cr libh.a libhello.o 
 
 libg.a: libgoodbye.o
 	ar cr libg.a libgoodbye.o 
 
 libhello.o: libhello.c
-	gcc -c -fPIC libhello.c
+	gcc -c libhello.c
 
 libgoodbye.o: libgoodbye.c
 	gcc -c libgoodbye.c
